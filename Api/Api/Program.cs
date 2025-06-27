@@ -1,3 +1,5 @@
+using RealEstate.Shared.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var identityAssembly = typeof(Identity.DependencyInjection).Assembly;
@@ -33,6 +35,7 @@ app.UseIdentityModule()
     .UsePartnerFinderModule()
     .UseSubscriptionModule();
 
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.Run();
 

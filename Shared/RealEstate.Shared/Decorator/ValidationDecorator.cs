@@ -8,15 +8,14 @@ namespace RealEstate.Shared.Decorator;
 
 public static class ValidationDecorator
 {
-    public  class CommandHandler<TCommand>(ICommandHandler<TCommand> innerHandler,
+    public  class CommandHandler<TCommand>(IRequestHandler<TCommand> innerHandler,
     IEnumerable<IValidator<TCommand>> validators) : ICommandHandler<TCommand>
-    where TCommand : ICommand 
+    where TCommand : ICommand
     {
 
 
         public async Task<JsonResult> Handle(TCommand request, CancellationToken cancellationToken)
         {
-            Console.WriteLine("YYYYYYYYYYYYYY");
             var validationFailures = await ValidateAsync(request, validators);
             if (validationFailures == null)
             {
@@ -40,7 +39,7 @@ public static class ValidationDecorator
                 return await innerHandler.Handle(request, cancellationToken);
             }
             return  Result.ValidationFailure(Error.ValidationFailures(validationFailures)).ToJsonResult();
-
+    
         }
     }
 

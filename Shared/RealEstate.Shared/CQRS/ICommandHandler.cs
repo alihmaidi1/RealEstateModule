@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using RealEstate.Shared.Decorator;
 
 namespace RealEstate.Shared.CQRS;
 
-public interface ICommandHandler<in TCommand> where TCommand : ICommand
+public interface ICommandHandler<in TCommand>:IRequestHandler<TCommand> where TCommand : ICommand
 {
     
-    public Task<JsonResult> Handle(TCommand request, CancellationToken cancellationToken);
     
-    
+
+
 }

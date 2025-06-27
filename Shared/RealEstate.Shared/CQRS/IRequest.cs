@@ -1,6 +1,6 @@
 namespace RealEstate.Shared.CQRS;
 
-public interface IQuery: IRequest
+public interface IRequest
 {
     
 }
